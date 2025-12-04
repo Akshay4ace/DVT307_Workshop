@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchUserAttributes } from 'aws-amplify/auth';
 import { Button } from '../common';
+import { useAuthenticator } from '@aws-amplify/ui-react';
+
 
 interface NavigationItem {
   path: string;
@@ -26,8 +28,8 @@ const Navigation: React.FC<NavigationProps> = ({ className = '' }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const user = null;
-  const signOut = () => {};
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
+
 
   useEffect(() => {
     const getUserAttributes = async () => {
